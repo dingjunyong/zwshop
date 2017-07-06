@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9C274EC2-A758-4847-94C4-D735B0938582}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ZwShop.Web</RootNamespace>
+    <AssemblyName>ZwShop.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit">
+      <HintPath>..\Dependencies\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Admin\backups\Index.htm" />
+    <Content Include="Admin\Common\ico-blacklist.png" />
+    <Content Include="Admin\Common\ico-catalog.png" />
+    <Content Include="Admin\Common\ico-configuration.png" />
+    <Content Include="Admin\Common\ico-content.png" />
+    <Content Include="Admin\Common\ico-customers.png" />
+    <Content Include="Admin\Common\ico-dashboard.png" />
+    <Content Include="Admin\Common\ico-help.gif" />
+    <Content Include="Admin\Common\ico-help.png" />
+    <Content Include="Admin\Common\ico-news.gif" />
+    <Content Include="Admin\Common\ico-promotions.png" />
+    <Content Include="Admin\Common\ico-sales.png" />
+    <Content Include="Admin\Common\ico-stat1.gif" />
+    <Content Include="Admin\Common\ico-system.png" />
+    <Content Include="Admin\Common\ico-warnings.gif" />
+    <Content Include="Admin\Default.aspx" />
+    <Content Include="Admin\Login.aspx" />
+    <Content Include="Admin\Modules\DecimalTextBox.ascx" />
+    <Content Include="Admin\Payment\Alipay\HostedPaymentConfig.ascx" />
+    <Content Include="App_Themes\admin\idTabs.css" />
+    <Content Include="App_Themes\admin\images\1pix.gif" />
+    <Content Include="App_Themes\admin\images\admin-gvw-bg.gif" />
+    <Content Include="App_Themes\admin\images\admin-header-bg.gif" />
+    <Content Include="App_Themes\admin\images\admin-menu-bg.gif" />
+    <Content Include="App_Themes\admin\images\background.gif" />
+    <Content Include="App_Themes\admin\images\blue_button_bg.gif" />
+    <Content Include="App_Themes\admin\images\EmptyStar.png" />
+    <Content Include="App_Themes\admin\images\ErrorMessage.gif" />
+    <Content Include="App_Themes\admin\images\FilledStar.png" />
+    <Content Include="App_Themes\admin\images\grey_button_bg.gif" />
+    <Content Include="App_Themes\admin\images\grid_header_back.png" />
+    <Content Include="App_Themes\admin\images\logo-bg.png" />
+    <Content Include="App_Themes\admin\images\logo.gif" />
+    <Content Include="App_Themes\admin\images\menu-item-left.png" />
+    <Content Include="App_Themes\admin\images\menu-item-right.png" />
+    <Content Include="App_Themes\admin\images\menu_bg.jpg" />
+    <Content Include="App_Themes\admin\images\SavedStar.png" />
+    <Content Include="App_Themes\admin\images\spinner.gif" />
+    <Content Include="App_Themes\admin\images\SuccessMessage.gif" />
+    <Content Include="App_Themes\admin\images\tab-line.png" />
+    <Content Include="App_Themes\admin\images\tab.png" />
+    <Content Include="App_Themes\admin\images\warnings-ajax-loader.gif" />
+    <Content Include="App_Themes\admin\images\warnings-cross.png" />
+    <Content Include="App_Themes\admin\images\warnings-tick.png" />
+    <Content Include="App_Themes\admin\images\warnings-warning.png" />
+    <Content Include="App_Themes\admin\styles.css" />
+    <Content Include="Default.aspx" />
+    <Content Include="Modules\Footer.ascx" />
+    <Content Include="Modules\Header.ascx" />
+    <Content Include="Modules\HeaderMenu.ascx" />
+    <Content Include="Modules\SearchBox.ascx" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Admin\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Main.Master.cs">
+      <DependentUpon>Main.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Main.Master.designer.cs">
+      <DependentUpon>Main.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Modules\DecimalTextBox.ascx.cs">
+      <DependentUpon>DecimalTextBox.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Modules\DecimalTextBox.ascx.designer.cs">
+      <DependentUpon>DecimalTextBox.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Payment\Alipay\HostedPaymentConfig.ascx.cs">
+      <DependentUpon>HostedPaymentConfig.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Payment\Alipay\HostedPaymentConfig.ascx.designer.cs">
+      <DependentUpon>HostedPaymentConfig.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\BaseShopAdminMasterPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\BaseShopAdminPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\BaseShopAdminUserControl.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\BaseShopFrontendMasterPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\BaseShopFrontendPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\BaseShopFrontendUserControl.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\BaseShopMasterPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\BaseShopPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\BaseShopUserControl.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\PageSslProtectionEnum.cs" />
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MasterPages\OneColumn.master.cs">
+      <DependentUpon>OneColumn.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterPages\OneColumn.master.designer.cs">
+      <DependentUpon>OneColumn.master</DependentUpon>
+    </Compile>
+    <Compile Include="MasterPages\Root.Master.cs">
+      <DependentUpon>Root.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterPages\Root.Master.designer.cs">
+      <DependentUpon>Root.Master</DependentUpon>
+    </Compile>
+    <Compile Include="MasterPages\ThreeColumn.master.cs">
+      <DependentUpon>ThreeColumn.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterPages\ThreeColumn.master.designer.cs">
+      <DependentUpon>ThreeColumn.master</DependentUpon>
+    </Compile>
+    <Compile Include="MasterPages\TwoColumn.master.cs">
+      <DependentUpon>TwoColumn.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterPages\TwoColumn.master.designer.cs">
+      <DependentUpon>TwoColumn.master</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Footer.ascx.cs">
+      <DependentUpon>Footer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Footer.ascx.designer.cs">
+      <DependentUpon>Footer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Header.ascx.cs">
+      <DependentUpon>Header.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Header.ascx.designer.cs">
+      <DependentUpon>Header.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\HeaderMenu.ascx.cs">
+      <DependentUpon>HeaderMenu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\HeaderMenu.ascx.designer.cs">
+      <DependentUpon>HeaderMenu.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\SearchBox.ascx.cs">
+      <DependentUpon>SearchBox.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\SearchBox.ascx.designer.cs">
+      <DependentUpon>SearchBox.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MasterPages\Root.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Themes\default\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Libraries\ZwShop.Common\ZwShop.Common.csproj">
+      <Project>{01C8BA76-0CE5-4EBE-93CD-9C48D706461A}</Project>
+      <Name>ZwShop.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Libraries\ZwShop.Services\ZwShop.Services.csproj">
+      <Project>{CBB36348-1F73-4D85-A8AF-3E23DE34E9B8}</Project>
+      <Name>ZwShop.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MasterPages\OneColumn.master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MasterPages\TwoColumn.master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MasterPages\ThreeColumn.master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\admin\Admin.skin" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Admin\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Admin\Main.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Admin\Admin.sitemap" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>3442</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

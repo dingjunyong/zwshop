@@ -1,0 +1,3 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/MasterPages/Root.Master" AutoEventWireup="true" CodeBehind="OneColumn.master.cs" Inherits="ZwShop.Web.MasterPages.OneColumn" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="cph1" runat="server">
+</asp:Content>

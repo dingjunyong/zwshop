@@ -5,13 +5,9 @@ using System.Configuration.Provider;
 using System.Web.Security;
 using ZwShop.Services.CustomerManagement;
 using ZwShop.Services.Infrastructure;
-using ZwShop.Services.Installation;
 
 namespace ZwShop.Services.Profile
 {
-    /// <summary>
-    /// Manages storage of role membership information for a ShopCommerce application in a data source.
-    /// </summary>
     public partial class StoreRoleProvider : RoleProvider
     {
         #region Fields
@@ -93,7 +89,7 @@ namespace ZwShop.Services.Profile
             }
             else
             {
-                var customerRoles = IoC.Resolve<ICustomerService>().GetCustomerRolesByCustomerId(customer.CustomerId, false);
+                var customerRoles = IoC.Resolve<ICustomerService>().GetCustomerRolesByCustomerId(customer.Id, false);
                 foreach (var cr in customerRoles)
                 {
                     if (cr.Active)
@@ -191,7 +187,7 @@ namespace ZwShop.Services.Profile
                 return false;
             }
 
-            var customerRoles = IoC.Resolve<ICustomerService>().GetCustomerRolesByCustomerId(customer.CustomerId, false);
+            var customerRoles = IoC.Resolve<ICustomerService>().GetCustomerRolesByCustomerId(customer.Id, false);
             foreach (var cr in customerRoles)
             {
                 if (cr.Active)

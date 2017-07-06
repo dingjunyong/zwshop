@@ -170,11 +170,16 @@
     <Compile Include="NopContext.cs" />
     <Compile Include="Orders\Extensions.cs" />
     <Compile Include="Orders\IOrderService.cs" />
+    <Compile Include="Orders\IShoppingCartService.cs" />
     <Compile Include="Orders\Order.cs" />
     <Compile Include="Orders\OrderEventArgs.cs" />
     <Compile Include="Orders\OrderService.cs" />
     <Compile Include="Orders\OrderStatusEnum.cs" />
     <Compile Include="Orders\RewardPointsHistory.cs" />
+    <Compile Include="Orders\ShoppingCart.cs" />
+    <Compile Include="Orders\ShoppingCartItem.cs" />
+    <Compile Include="Orders\ShoppingCartService.cs" />
+    <Compile Include="Orders\ShoppingCartTypeEnum.cs" />
     <Compile Include="Payment\CancelPaymentResult.cs" />
     <Compile Include="Payment\Extensions.cs" />
     <Compile Include="Payment\IPaymentMethod.cs" />

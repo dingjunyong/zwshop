@@ -1,0 +1,74 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="ZwShop.Web.Admin.Main" %>
+<%@ Register TagPrefix="shop" TagName="Menu" Src="Modules/MenuControl.ascx" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>NopCommerce Web Administration</title>
+    <asp:PlaceHolder id="SCRIPTS" runat="server" />
+</head>
+<body>
+    <form id="form1" runat="server">
+    <ajaxToolkit:ToolkitScriptManager runat="server" ID="sm1" EnableScriptGlobalization="true" EnableScriptLocalization="true"
+        ScriptMode="Release" CompositeScript-ScriptMode="Release" />
+    <div class="master-wrapper-page">
+        <div class="master-wrapper-content">
+            <div class="header">
+                <div class="logo">
+                </div>
+                <div class="links">
+                    <a href="<%=CommonHelper.GetStoreLocation()%>">商城首页</a> <span class="separator">
+                        |</span>
+                    <asp:LinkButton runat="server" ID="lbClearCache" CausesValidation="false" OnClick="lbClearCache_Click"
+                        Text="<% $NopResources:Admin.ClearCacheButton.Text %>" />
+                </div>
+                <div class="login-info">
+                    <asp:LoginView ID="topLoginView" runat="server">
+                        <LoggedInTemplate>
+                            管理员已登录
+                            <%=Page.User.Identity.Name %>, <a href="<%=Page.ResolveUrl("~/admin/logout.aspx")%>">
+                                注销</a>
+                        </LoggedInTemplate>
+                    </asp:LoginView>
+                </div>
+                <div class="version">
+                    <asp:Label runat="server" ID="lblHeader" />
+                </div>
+            </div>
+            <div class="clear">
+            </div>
+            <div class="header-menu">
+                <shop:Menu runat="server" ID="ctrlMenu" SiteMapProviderName="ShopAdminXmlSiteMapProvider" />
+            </div>
+            <div class="status-bar">
+                <div class="help">
+                    <%=DateTimeHelper.ConvertToUserTime(DateTime.UtcNow).ToString("f")%>
+                    <asp:HyperLink runat="server" ID="lnkHelp" />
+                </div>
+                <div class="breadcrumb">
+                    <asp:SiteMapPath ID="smp" runat="server" RenderCurrentNodeAsLink="true" PathSeparatorStyle-Font-Bold="true">
+                        <NodeTemplate>
+                            <a href='<%# Eval("url") %>' title='<%# Container.SiteMapNode["description"]%>'>
+                            <%# Container.SiteMapNode["title"]%></a>
+                        </NodeTemplate>
+                    </asp:SiteMapPath>
+                </div>
+            </div>
+            <div class="clear">
+            </div>
+            <div class="content">
+                <asp:Panel runat="server" ID="pnlMessage" EnableViewState="false" Visible="false">
+                    <asp:Literal runat="server" ID="lMessage" EnableViewState="false" />
+                    <asp:Literal runat="server" ID="lMessageComplete" EnableViewState="false" />
+                </asp:Panel>
+                <div class="cph">
+                    <asp:ContentPlaceHolder ID="cph1" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+</body>
+</html>
