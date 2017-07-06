@@ -1,0 +1,51 @@
+﻿//------------------------------------------------------------------------------
+// The contents of this file are subject to the ShopCommerce Public License Version 1.0 ("License"); you may not use this file except in compliance with the License.
+
+// 
+// Software distributed under the License is distributed on an "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. 
+// See the License for the specific language governing rights and limitations under the License.
+// 
+// The Original Code is ShopCommerce.
+// The Initial Developer of the Original Code is ShopSolutions.
+// All Rights Reserved.
+// 
+// Contributor(s): _______. 
+//------------------------------------------------------------------------------
+
+using System.Collections.Generic;
+
+namespace ZwShop.Services.Audit
+{
+    /// <summary>
+    /// 用户活动日志类型
+    /// </summary>
+    public partial class ActivityLogType : BaseEntity
+    {
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the system keyword
+        /// </summary>
+        public string SystemKeyword { get; set; }
+
+        /// <summary>
+        /// Gets or sets the display name
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the activity log type is enabled
+        /// </summary>
+        public bool Enabled { get; set; }
+        #endregion
+
+        #region Navigation Properties
+
+        /// <summary>
+        /// Gets the activity log
+        /// </summary>
+        public virtual ICollection<ActivityLog> NpActivityLog { get; set; }
+
+        #endregion
+    }
+}
