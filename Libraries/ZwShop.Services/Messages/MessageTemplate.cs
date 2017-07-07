@@ -22,7 +22,7 @@ namespace ZwShop.Services.Messages
         /// <summary>
         /// Gets or sets the name
         /// </summary>
-        public string Name { get; set; }
+        public string Title { get; set; }
 
         /// <summary>
         /// Gets or sets the subject

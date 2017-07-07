@@ -160,7 +160,7 @@ namespace ZwShop.Services.Audit.UsersOnline
                         oui.LastVisit = DateTime.UtcNow;
                         oui.LastPageVisited = CommonHelper.GetThisPageUrl(true);
                         oui.IPAddress = ShopContext.Current.UserHostAddress;
-                        oui.AssociatedCustomerId = ShopContext.Current.User.CustomerId;
+                        oui.AssociatedCustomerId = ShopContext.Current.User.Id;
                         HttpContext.Current.Response.Cookies.Remove(TRACKINGCOOKIENAME);
                     }
                     else

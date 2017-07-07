@@ -92,10 +92,6 @@ namespace ZwShop.Services.Profile
             else
             {
                 DateTime tmp1 = source;
-                if (convertToUserTime)
-                {
-                    tmp1 = DateTimeHelper.ConvertToUserTime(tmp1, DateTimeKind.Utc);
-                }
                 //default formatting
                 if (!String.IsNullOrEmpty(defaultFormat))
                 {

@@ -164,7 +164,7 @@ namespace ZwShop.Web
             if (masterPage == null)
                 return;
 
-            BaseShopAdministrationMasterPage ShopAdministrationMasterPage = masterPage as BaseShopAdministrationMasterPage;
+            BaseShopAdminMasterPage ShopAdministrationMasterPage = masterPage as BaseShopAdminMasterPage;
             if (ShopAdministrationMasterPage != null)
                 ShopAdministrationMasterPage.ShowMessage(message);
         }
@@ -180,7 +180,7 @@ namespace ZwShop.Web
             if (masterPage == null)
                 return;
 
-            BaseShopAdministrationMasterPage ShopAdministrationMasterPage = masterPage as BaseShopAdministrationMasterPage;
+            BaseShopAdminMasterPage ShopAdministrationMasterPage = masterPage as BaseShopAdminMasterPage;
             if (ShopAdministrationMasterPage != null)
                 ShopAdministrationMasterPage.ShowError(message, completeMessage);
         }

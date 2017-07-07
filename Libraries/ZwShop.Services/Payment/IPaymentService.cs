@@ -1,17 +1,3 @@
-//------------------------------------------------------------------------------
-// The contents of this file are subject to the ShopCommerce Public License Version 1.0 ("License"); you may not use this file except in compliance with the License.
-
-// 
-// Software distributed under the License is distributed on an "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. 
-// See the License for the specific language governing rights and limitations under the License.
-// 
-// The Original Code is ShopCommerce.
-// The Initial Developer of the Original Code is ShopSolutions.
-// All Rights Reserved.
-// 
-// Contributor(s): _______. 
-//------------------------------------------------------------------------------
-
 using System;
 using System.Collections.Generic;
 using ZwShop.Services.CustomerManagement;
@@ -19,45 +5,8 @@ using ZwShop.Services.Orders;
 
 namespace ZwShop.Services.Payment
 {
-    /// <summary>
-    /// Payment service interface
-    /// </summary>
     public partial interface IPaymentService
     {
-        #region Credit cards
-        /// <summary>
-        /// Gets a credit card type
-        /// </summary>
-        /// <param name="creditCardTypeId">Credit card type identifier</param>
-        /// <returns>Credit card type</returns>
-        CreditCardType GetCreditCardTypeById(int creditCardTypeId);
-
-        /// <summary>
-        /// Marks a credit card type as deleted
-        /// </summary>
-        /// <param name="creditCardTypeId">Credit card type identifier</param>
-        void MarkCreditCardTypeAsDeleted(int creditCardTypeId);
-
-        /// <summary>
-        /// Gets all credit card types
-        /// </summary>
-        /// <returns>Credit card type collection</returns>
-        List<CreditCardType> GetAllCreditCardTypes();
-
-        /// <summary>
-        /// Inserts a credit card type
-        /// </summary>
-        /// <param name="creditCardType">Credit card type</param>
-        void InsertCreditCardType(CreditCardType creditCardType);
-
-        /// <summary>
-        /// Updates the credit card type
-        /// </summary>
-        /// <param name="creditCardType">Credit card type</param>
-        void UpdateCreditCardType(CreditCardType creditCardType);
-
-        #endregion
-
         #region Payment methods
 
         /// <summary>
@@ -212,12 +161,7 @@ namespace ZwShop.Services.Payment
         /// <param name="cancelPaymentResult">Cancel payment result</param>
         void Void(Order order, ref CancelPaymentResult cancelPaymentResult);
 
-        /// <summary>
-        /// Gets a recurring payment type of payment method
-        /// </summary>
-        /// <param name="paymentMethodId">Payment method identifier</param>
-        /// <returns>A recurring payment type of payment method</returns>
-        RecurringPaymentTypeEnum SupportRecurringPayments(int paymentMethodId);
+
 
         /// <summary>
         /// Gets a payment method type

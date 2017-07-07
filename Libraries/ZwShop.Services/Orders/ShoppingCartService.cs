@@ -1,5 +1,3 @@
-
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +7,8 @@ using ZwShop.Services.Configuration.Settings;
 using ZwShop.Services.CustomerManagement;
 using ZwShop.Services.Data;
 using ZwShop.Services.Directory;
-
 using ZwShop.Services.Payment;
 using ZwShop.Services.Products;
-using ZwShop.Services.Products.Attributes;
 using ZwShop.Services.Shipping;
 using ZwShop.Common;
 using ZwShop.Common.Utils;

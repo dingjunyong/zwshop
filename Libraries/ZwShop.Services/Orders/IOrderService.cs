@@ -40,6 +40,49 @@ namespace ZwShop.Services.Orders
 
         #endregion
 
+        #region Orders product variants
+
+        OrderProductVariant GetOrderProductVariantById(int orderProductVariantId);
+
+        void DeleteOrderProductVariant(int orderProductVariantId);
+
+        OrderProductVariant GetOrderProductVariantByGuid(Guid orderProductVariantGuid);
+
+        List<OrderProductVariant> GetAllOrderProductVariants(int? orderId,
+            int? customerId, DateTime? startTime, DateTime? endTime,
+            OrderStatusEnum? os, PaymentStatusEnum? ps, ShippingStatusEnum? ss);
+
+        List<OrderProductVariant> GetAllOrderProductVariants(int? orderId,
+            int? customerId, DateTime? startTime, DateTime? endTime,
+            OrderStatusEnum? os, PaymentStatusEnum? ps, ShippingStatusEnum? ss,
+            bool loadDownloableProductsOnly);
+
+        List<OrderProductVariant> GetOrderProductVariantsByOrderId(int orderId);
+
+        void InsertOrderProductVariant(OrderProductVariant opv);
+
+        void UpdateOrderProductVariant(OrderProductVariant opv);
+
+        #endregion
+
+        #region Order notes
+        OrderNote GetOrderNoteById(int orderNoteId);
+
+        List<OrderNote> GetOrderNoteByOrderId(int orderId);
+
+        List<OrderNote> GetOrderNoteByOrderId(int orderId, bool showHidden);
+
+        void DeleteOrderNote(int orderNoteId);
+
+        OrderNote InsertOrderNote(int orderId, string note, DateTime createdOn);
+
+        OrderNote InsertOrderNote(int orderId, string note,
+            bool displayToCustomer, DateTime createdOn);
+
+        void UpdateOrderNote(OrderNote orderNote);
+
+        #endregion
+
         #region Reward points
 
         void DeleteRewardPointsHistory(int rewardPointsHistoryId);
@@ -57,9 +100,6 @@ namespace ZwShop.Services.Orders
         void UpdateRewardPointsHistory(RewardPointsHistory rewardPointsHistory);
 
         #endregion
-
-
-
 
         #region Properties
 

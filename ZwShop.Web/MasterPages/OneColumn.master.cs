@@ -9,9 +9,6 @@ namespace ZwShop.Web.MasterPages
 {
     public partial class OneColumn : BaseShopFrontendMasterPage
     {
-        protected void Page_Load(object sender, EventArgs e)
-        {
-
-        }
+        
     }
 }

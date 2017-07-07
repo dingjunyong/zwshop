@@ -126,12 +126,8 @@ namespace ZwShop.Services.Profile
                 }
             }
             
-            //set current culture (after current user is loaded)
-            var currentLanguage = ShopContext.Current.WorkingLanguage;
-            if (currentLanguage != null)
-            {
-                ShopContext.Current.SetCulture(new CultureInfo(currentLanguage.LanguageCulture));
-            }
+                          
+
         }
 
         /// <summary>

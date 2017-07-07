@@ -10,10 +10,6 @@ using ZwShop.Services.Audit.UsersOnline;
 using ZwShop.Services.Categories;
 using ZwShop.Services.Configuration;
 using ZwShop.Services.Configuration.Settings;
-using ZwShop.Services.Content.Blog;
-using ZwShop.Services.Content.Forums;
-using ZwShop.Services.Content.NewsManagement;
-using ZwShop.Services.Content.Polls;
 using ZwShop.Services.Content.Topics;
 using ZwShop.Services.CustomerManagement;
 using ZwShop.Services.Directory;
@@ -25,8 +21,6 @@ using ZwShop.Services.Messages.SMS;
 using ZwShop.Services.Orders;
 using ZwShop.Services.Payment;
 using ZwShop.Services.Products;
-using ZwShop.Services.Products.Attributes;
-using ZwShop.Services.Products.Specs;
 using ZwShop.Services.Security;
 using ZwShop.Services.Shipping;
 using ZwShop.Services.Data;
@@ -83,31 +77,24 @@ namespace ZwShop.Services.Infrastructure
             container.RegisterType<ILogService, LogService>(new UnityPerExecutionContextLifetimeManager());
             container.RegisterType<ICategoryService, CategoryService>(new UnityPerExecutionContextLifetimeManager());
             container.RegisterType<ISettingManager, SettingManager>(new UnityPerExecutionContextLifetimeManager());
-            container.RegisterType<IBlogService, BlogService>(new UnityPerExecutionContextLifetimeManager());
-            container.RegisterType<IForumService, ForumService>(new UnityPerExecutionContextLifetimeManager());
-            container.RegisterType<INewsService, NewsService>(new UnityPerExecutionContextLifetimeManager());
-            container.RegisterType<IPollService, PollService>(new UnityPerExecutionContextLifetimeManager());
+          
             container.RegisterType<ITopicService, TopicService>(new UnityPerExecutionContextLifetimeManager());
             container.RegisterType<ICustomerService, CustomerService>(new UnityPerExecutionContextLifetimeManager());
-            container.RegisterType<ICountryService, CountryService>(new UnityPerExecutionContextLifetimeManager());
-            container.RegisterType<ICurrencyService, CurrencyService>(new UnityPerExecutionContextLifetimeManager());
-            container.RegisterType<ILanguageService, LanguageService>(new UnityPerExecutionContextLifetimeManager());
+          
             container.RegisterType<IStateProvinceService, StateProvinceService>(new UnityPerExecutionContextLifetimeManager());
             container.RegisterType<IExportManager, ExportManager>(new UnityPerExecutionContextLifetimeManager());
             container.RegisterType<IImportManager, ImportManager>(new UnityPerExecutionContextLifetimeManager());
             container.RegisterType<IBrandService, BrandService>(new UnityPerExecutionContextLifetimeManager());
-            container.RegisterType<IDownloadService, DownloadService>(new UnityPerExecutionContextLifetimeManager());
+            
             container.RegisterType<IPictureService, PictureService>(new UnityPerExecutionContextLifetimeManager());
             container.RegisterType<ISMSService, SMSService>(new UnityPerExecutionContextLifetimeManager());
             container.RegisterType<IMessageService, MessageService>(new UnityPerExecutionContextLifetimeManager());
             container.RegisterType<IOrderService, OrderService>(new UnityPerExecutionContextLifetimeManager());
             container.RegisterType<IShoppingCartService, ShoppingCartService>(new UnityPerExecutionContextLifetimeManager());
             container.RegisterType<IPaymentService, PaymentService>(new UnityPerExecutionContextLifetimeManager());
-            container.RegisterType<ICheckoutAttributeService, CheckoutAttributeService>(new UnityPerExecutionContextLifetimeManager());
-            container.RegisterType<IProductAttributeService, ProductAttributeService>(new UnityPerExecutionContextLifetimeManager());
-            container.RegisterType<ISpecificationAttributeService, SpecificationAttributeService>(new UnityPerExecutionContextLifetimeManager());
+           
             container.RegisterType<IProductService, ProductService>(new UnityPerExecutionContextLifetimeManager());
-            container.RegisterType<IACLService, ACLService>(new UnityPerExecutionContextLifetimeManager());
+           
             container.RegisterType<IBlacklistService, BlacklistService>(new UnityPerExecutionContextLifetimeManager());
             container.RegisterType<IShippingService, ShippingService>(new UnityPerExecutionContextLifetimeManager());
             

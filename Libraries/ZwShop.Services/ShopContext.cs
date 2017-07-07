@@ -8,7 +8,6 @@ using ZwShop.Services.Configuration.Settings;
 using ZwShop.Services.CustomerManagement;
 using ZwShop.Services.Directory;
 using ZwShop.Services.Infrastructure;
-using ZwShop.Services.Tax;
 using ZwShop.Common;
 using ZwShop.Common.Utils;
 
@@ -30,10 +29,7 @@ namespace ZwShop.Services
         private Customer _originalCustomer;
         private bool? _isAdmin;
         private readonly HttpContext _context = HttpContext.Current;
-        private Language _workingLanguage;
-        private Currency _workingCurrency;
         private bool? _localizedEntityPropertiesEnabled;
-        private TaxDisplayTypeEnum? _taxDisplayType;
         #endregion
 
         #region Ctor
@@ -60,7 +56,7 @@ namespace ZwShop.Services
             int customerId = 0;
             if (this.User != null)
             {
-                customerId = this.User.CustomerId;
+                customerId = this.User.Id;
             }
             session.CustomerSessionGuid = sessionId;
             session.CustomerId = customerId;
@@ -314,128 +310,6 @@ namespace ZwShop.Services
             }
         }
 
-        /// <summary>
-        /// Get or set current user working currency
-        /// </summary>
-        public Currency WorkingCurrency
-        {
-            get
-            {
-                //cached value
-                if (this._workingCurrency != null)
-                    return this._workingCurrency;
-
-                if (this.IsAdmin)
-                {
-                    this._workingCurrency = IoC.Resolve<ICurrencyService>().PrimaryStoreCurrency;
-                    return this._workingCurrency;
-                }
-                var publishedCurrencies = IoC.Resolve<ICurrencyService>().GetAllCurrencies();
-                if (this.User != null)
-                {
-                    var customerCurrency = this.User.Currency;
-                    if (customerCurrency != null)
-                        foreach (Currency _currency in publishedCurrencies)
-                            if (_currency.CurrencyId == customerCurrency.CurrencyId)
-                            {
-                                this._workingCurrency = customerCurrency;
-                                return this._workingCurrency;
-                            }
-                }
-                else if (CommonHelper.GetCookieInt("Shop.CustomerCurrency") > 0)
-                {
-                    var customerCurrency = IoC.Resolve<ICurrencyService>().GetCurrencyById(CommonHelper.GetCookieInt("Shop.CustomerCurrency"));
-                    if (customerCurrency != null)
-                        foreach (Currency _currency in publishedCurrencies)
-                            if (_currency.CurrencyId == customerCurrency.CurrencyId)
-                            {
-                                this._workingCurrency = customerCurrency;
-                                return this._workingCurrency;
-                            }
-                }
-                foreach (var currency in publishedCurrencies)
-                {
-                    this._workingCurrency = currency;
-                    return this._workingCurrency;
-                }
-
-                throw new ShopException("Currencies could not be loaded");
-            }
-            set
-            {
-                if (value == null)
-                    return;
-                if (this.User != null)
-                {
-                    this.User.CurrencyId = value.CurrencyId;
-                    IoC.Resolve<ICustomerService>().UpdateCustomer(this.User);
-                }
-                if (!this.IsAdmin)
-                {
-                    CommonHelper.SetCookie("Shop.CustomerCurrency", value.CurrencyId.ToString(), new TimeSpan(365, 0, 0, 0, 0));
-                }
-
-                //reset cached value
-                this._workingCurrency = null;
-            }
-        }
-
-        /// <summary>
-        /// Get or set current user working language
-        /// </summary>
-        public Language WorkingLanguage
-        {
-            get
-            {
-                //cached value
-                if (this._workingLanguage != null)
-                    return this._workingLanguage;
-
-                //customer language
-                if (this.User != null)
-                {
-                    var customerLanguage = this.User.Language;
-                    if (customerLanguage != null && customerLanguage.Published)
-                    {
-                        this._workingLanguage = customerLanguage;
-                        return this._workingLanguage;
-                    }
-                }
-                else if (CommonHelper.GetCookieInt("Shop.CustomerLanguage") > 0)
-                {
-                    var customerLanguage = IoC.Resolve<ILanguageService>().GetLanguageById(CommonHelper.GetCookieInt("Shop.CustomerLanguage"));
-                    if (customerLanguage != null && customerLanguage.Published)
-                    {
-                        this._workingLanguage = customerLanguage;
-                        return this._workingLanguage;
-                    }
-                }
-                var publishedLanguages = IoC.Resolve<ILanguageService>().GetAllLanguages(false);
-                foreach (var language in publishedLanguages)
-                {
-                    this._workingLanguage = language;
-                    return this._workingLanguage;
-                }
-
-                throw new ShopException("Languages could not be loaded");
-            }
-            set
-            {
-                if (value == null)
-                    return;
-
-                if (this.User != null)
-                {
-                    this.User.LanguageId = value.LanguageId;
-                    IoC.Resolve<ICustomerService>().UpdateCustomer(this.User);
-                }
-
-                CommonHelper.SetCookie("Shop.CustomerLanguage", value.LanguageId.ToString(), new TimeSpan(365, 0, 0, 0, 0));
-
-                //reset cached value
-                this._workingLanguage = null;
-            }
-        }
 
         /// <summary>
         /// Get or set current theme (e.g. darkOrange)
@@ -475,76 +349,6 @@ namespace ZwShop.Services
             }
         }
 
-        /// <summary>
-        /// Get a value indicating whether we have localized entity properties
-        /// </summary>
-        public bool LocalizedEntityPropertiesEnabled
-        {
-            get
-            {
-                if (!_localizedEntityPropertiesEnabled.HasValue)
-                {
-                    bool showHidden = this.IsAdmin;
-                    var languages = IoC.Resolve<ILanguageService>().GetAllLanguages(showHidden);
-
-                    this._localizedEntityPropertiesEnabled = languages.Count > 1;
-                }
-                return this._localizedEntityPropertiesEnabled.Value;
-            }
-        }
-
-        /// <summary>
-        /// Get or set current tax display type
-        /// </summary>
-        public TaxDisplayTypeEnum TaxDisplayType
-        {
-            get
-            {
-                //cached value
-                if (this._taxDisplayType.HasValue)
-                    return this._taxDisplayType.Value;
-                //if (this.IsAdmin)
-                //{
-                //    this._taxDisplayType =  IoC.Resolve<ITaxService>().TaxDisplayType;
-                //    return this._taxDisplayType.Value;
-                //}
-
-                if (IoC.Resolve<ITaxService>().AllowCustomersToSelectTaxDisplayType)
-                {
-                    if (this.User != null)
-                    {
-                        this._taxDisplayType = this.User.TaxDisplayType;
-                        return this._taxDisplayType.Value;
-                    }
-                    else if (CommonHelper.GetCookieInt("Shop.TaxDisplayTypeId") > 0)
-                    {
-                        this._taxDisplayType = (TaxDisplayTypeEnum)Enum.ToObject(typeof(TaxDisplayTypeEnum), CommonHelper.GetCookieInt("Shop.TaxDisplayTypeId"));
-                        return this._taxDisplayType.Value;
-                    }
-                }
-
-                this._taxDisplayType = IoC.Resolve<ITaxService>().TaxDisplayType;
-                return this._taxDisplayType.Value;
-            }
-            set
-            {
-                if (!IoC.Resolve<ITaxService>().AllowCustomersToSelectTaxDisplayType)
-                    return;
-
-                if (this.User != null)
-                {
-                    this.User.TaxDisplayTypeId = (int)value;
-                    IoC.Resolve<ICustomerService>().UpdateCustomer(this.User);
-                }
-                if (!this.IsAdmin)
-                {
-                    CommonHelper.SetCookie("Shop.TaxDisplayTypeId", ((int)value).ToString(), new TimeSpan(365, 0, 0, 0, 0));
-                }
-
-                //reset cached value
-                this._taxDisplayType = null;
-            }
-        }
 
         /// <summary>
         /// Gets the last page for "Continue shopping" button on shopping cart page

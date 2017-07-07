@@ -19,7 +19,7 @@ namespace ZwShop.Web.Modules
 
         protected override void OnPreRender(EventArgs e)
         {
-            this.txtSearchTerms.Attributes.Add("onfocus", string.Format("if(this.value=='{0}')this.value=''", GetLocaleResourceString("Search.SearchStoreTooltip")));
+            this.txtSearchTerms.Attributes.Add("onfocus", string.Format("if(this.value=='{0}')this.value=''", "搜索"));
             txtSearchTerms.Attributes.Add("onkeydown", "if(event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)) {document.getElementById('" + btnSearch.ClientID + "').click();return false;}} else {return true}; ");
             base.OnPreRender(e);
         }

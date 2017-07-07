@@ -2,7 +2,6 @@ using System;
 using ZwShop.Services.CustomerManagement;
 using ZwShop.Services.Infrastructure;
 using ZwShop.Services.Products;
-using ZwShop.Services.Products.Attributes;
 
 namespace ZwShop.Services.Orders
 {
@@ -18,8 +17,6 @@ namespace ZwShop.Services.Orders
         public Guid CustomerSessionGuid { get; set; }
 
         public int ProductVariantId { get; set; }
-
-        public decimal CustomerEnteredPrice { get; set; }
 
         public int Quantity { get; set; }
 

@@ -71,7 +71,7 @@ namespace ZwShop.Services.Messages
             get
             {
                 var defaultEmailAccount = IoC.Resolve<IMessageService>().DefaultEmailAccount;
-                return ((defaultEmailAccount != null && defaultEmailAccount.EmailAccountId == this.EmailAccountId));
+                return ((defaultEmailAccount != null && defaultEmailAccount.Id == this.Id));
             }
         }
 

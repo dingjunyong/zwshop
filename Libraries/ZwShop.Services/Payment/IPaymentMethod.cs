@@ -55,11 +55,6 @@ namespace ZwShop.Services.Payment
         /// </summary>
         bool CanVoid { get; }
 
-        /// <summary>
-        /// Gets a recurring payment type of payment method
-        /// </summary>
-        /// <returns>A recurring payment type of payment method</returns>
-        RecurringPaymentTypeEnum SupportRecurringPayments { get; }
         
         /// <summary>
         /// Gets a payment method type

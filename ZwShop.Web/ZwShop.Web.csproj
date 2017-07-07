@@ -51,6 +51,9 @@
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="UrlRewritingNet.UrlRewriter">
+      <HintPath>..\Dependencies\UrlRewritingNet.UrlRewriter.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin\backups\Index.htm" />
@@ -100,10 +103,14 @@
     <Content Include="App_Themes\admin\images\warnings-warning.png" />
     <Content Include="App_Themes\admin\styles.css" />
     <Content Include="Default.aspx" />
+    <Content Include="ErrorPage.htm" />
+    <Content Include="FileNotFound.htm" />
+    <Content Include="Global.asax" />
     <Content Include="Modules\Footer.ascx" />
     <Content Include="Modules\Header.ascx" />
     <Content Include="Modules\HeaderMenu.ascx" />
     <Content Include="Modules\SearchBox.ascx" />
+    <Content Include="StoreClosed.htm" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -246,9 +253,17 @@
       <Project>{01C8BA76-0CE5-4EBE-93CD-9C48D706461A}</Project>
       <Name>ZwShop.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Libraries\ZwShop.Controls\ZwShop.Controls.csproj">
+      <Project>{1DA67E66-0B0E-470E-AD84-46A70763C780}</Project>
+      <Name>ZwShop.Controls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Libraries\ZwShop.Services\ZwShop.Services.csproj">
       <Project>{CBB36348-1F73-4D85-A8AF-3E23DE34E9B8}</Project>
       <Name>ZwShop.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Payment\ZwShop.Payment.Alipay\ZwShop.Payment.Alipay.csproj">
+      <Project>{133FE796-1EE0-439C-8F10-CDAA907E588B}</Project>
+      <Name>ZwShop.Payment.Alipay</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -271,6 +286,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin\Admin.sitemap" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="UrlRewriting.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ConnectionStrings.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

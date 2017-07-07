@@ -94,13 +94,5 @@ namespace ZwShop.Services.Payment
 
         #endregion
 
-        #region Navigation Properties
-
-        /// <summary>
-        /// Gets the restricted countries
-        /// </summary>
-        public virtual ICollection<Country> NpRestrictedCountries { get; set; }
-
-        #endregion
     }
 }

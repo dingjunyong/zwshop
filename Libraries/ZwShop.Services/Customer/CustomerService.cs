@@ -384,7 +384,7 @@ namespace ZwShop.Services.CustomerManagement
         {
             get
             {
-                throw new NotImplementedException();
+                return true;
             }
             set
             {

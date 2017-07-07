@@ -543,53 +543,27 @@ namespace ZwShop.Services.Orders
             }
         }
 
-        /// <summary>
-        /// Gets or sets the customer tax display type
-        /// </summary>
-        public TaxDisplayTypeEnum CustomerTaxDisplayType
-        {
-            get
-            {
-                return (TaxDisplayTypeEnum)this.CustomerTaxDisplayTypeId;
-            }
-            set
-            {
-                this.CustomerTaxDisplayTypeId = (int)value;
-            }
-        }
+        ///// <summary>
+        ///// Gets the order product variants
+        ///// </summary>
+        //public List<OrderProductVariant> OrderProductVariants
+        //{
+        //    get
+        //    {
+        //        return IoC.Resolve<IOrderService>().GetOrderProductVariantsByOrderId(this.OrderId);
+        //    }
+        //}
 
-        /// <summary>
-        /// Gets the affiliate
-        /// </summary>
-        public Affiliate Affiliate
-        {
-            get
-            {
-                return IoC.Resolve<IAffiliateService>().GetAffiliateById(this.AffiliateId);
-            }
-        }
-
-        /// <summary>
-        /// Gets the order product variants
-        /// </summary>
-        public List<OrderProductVariant> OrderProductVariants
-        {
-            get
-            {
-                return IoC.Resolve<IOrderService>().GetOrderProductVariantsByOrderId(this.OrderId);
-            }
-        }
-
-        /// <summary>
-        /// Gets the order notes
-        /// </summary>
-        public List<OrderNote> OrderNotes
-        {
-            get
-            {
-                return IoC.Resolve<IOrderService>().GetOrderNoteByOrderId(this.OrderId);
-            }
-        }
+        ///// <summary>
+        ///// Gets the order notes
+        ///// </summary>
+        //public List<OrderNote> OrderNotes
+        //{
+        //    get
+        //    {
+        //        return IoC.Resolve<IOrderService>().GetOrderNoteByOrderId(this.OrderId);
+        //    }
+        //}
 
         /// <summary>
         /// Gets or sets the order status
@@ -713,20 +687,17 @@ namespace ZwShop.Services.Orders
 
         #region Navigation Properties
 
-        /// <summary>
-        /// Gets the order notes
-        /// </summary>
-        public virtual ICollection<OrderNote> NpOrderNotes { get; set; }
+        ///// <summary>
+        ///// Gets the order notes
+        ///// </summary>
+        //public virtual ICollection<OrderNote> NpOrderNotes { get; set; }
 
-        /// <summary>
-        /// Gets the order product variants
-        /// </summary>
-        public virtual ICollection<OrderProductVariant> NpOrderProductVariants { get; set; }
+        ///// <summary>
+        ///// Gets the order product variants
+        ///// </summary>
+        //public virtual ICollection<OrderProductVariant> NpOrderProductVariants { get; set; }
 
-        /// <summary>
-        /// Gets the discount usage history
-        /// </summary>
-        public virtual ICollection<DiscountUsageHistory> NpDiscountUsageHistory { get; set; }
+
         
         #endregion
     }

@@ -26,8 +26,7 @@ namespace ZwShop.Services.CustomerManagement
                a.Address2 == address2 &&
                a.City == city &&
                a.StateProvinceId == stateProvinceId &&
-               a.ZipPostalCode == zipPostalCode &&
-               a.CountryId == countryId);
+               a.ZipPostalCode == zipPostalCode);
         }
 
         /// <summary>
@@ -72,24 +71,11 @@ namespace ZwShop.Services.CustomerManagement
 
             if (customer.IsGuest)
             {
-                return IoC.Resolve<ILocalizationManager>().GetLocaleResourceString("Customer.Guest");
+                return "сн©м";
             }
 
-            string result = string.Empty;
-            switch (IoC.Resolve<ICustomerService>().CustomerNameFormatting)
-            {
-                case CustomerNameFormatEnum.ShowEmails:
-                    result = customer.Email;
-                    break;
-                case CustomerNameFormatEnum.ShowFullNames:
-                    result = customer.FullName;
-                    break;
-                case CustomerNameFormatEnum.ShowUsernames:
-                    result = customer.Username;
-                    break;
-                default:
-                    break;
-            }
+            string result = customer.Username;
+            
 
             if (stripTooLong)
             {

@@ -13,8 +13,6 @@ using ZwShop.Services.Brands;
 using ZwShop.Services.Messages;
 using ZwShop.Services.Orders;
 using ZwShop.Services.Products;
-using ZwShop.Services.Products.Attributes;
-using ZwShop.Services.Products.Specs;
 
 namespace ZwShop.Services.ExportImport
 {

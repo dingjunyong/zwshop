@@ -94,16 +94,7 @@ namespace ZwShop.Services.CustomerManagement
 
         #region Custom Properties
 
-        /// <summary>
-        /// Gets the last billing address
-        /// </summary>
-        public Affiliate Affiliate
-        {
-            get
-            {
-                return IoC.Resolve<IAffiliateService>().GetAffiliateById(this.AffiliateId);
-            }
-        }
+      
 
         /// <summary>
         /// Gets the customer attributes
@@ -113,7 +104,7 @@ namespace ZwShop.Services.CustomerManagement
             get
             {
                 if (_customerAttributesCache == null)
-                    _customerAttributesCache = IoC.Resolve<ICustomerService>().GetCustomerAttributesByCustomerId(this.CustomerId);
+                    _customerAttributesCache = IoC.Resolve<ICustomerService>().GetCustomerAttributesByCustomerId(this.Id);
 
                 return _customerAttributesCache;
             }
@@ -127,25 +118,13 @@ namespace ZwShop.Services.CustomerManagement
             get
             {
                 if (_customerRolesCache == null)
-                    _customerRolesCache = IoC.Resolve<ICustomerService>().GetCustomerRolesByCustomerId(this.CustomerId);
+                    _customerRolesCache = IoC.Resolve<ICustomerService>().GetCustomerRolesByCustomerId(this.Id);
 
                 return _customerRolesCache;
             }
         }
 
-        /// <summary>
-        /// Gets the last billing address
-        /// </summary>
-        public Address BillingAddress
-        {
-            get
-            {
-                if (_billingAddressCache == null)
-                    _billingAddressCache = IoC.Resolve<ICustomerService>().GetAddressById(this.BillingAddressId);
-
-                return _billingAddressCache;
-            }
-        }
+      
 
         /// <summary>
         /// Gets the last shipping address
@@ -161,38 +140,8 @@ namespace ZwShop.Services.CustomerManagement
             }
         }
 
-        /// <summary>
-        /// Gets the language
-        /// </summary>
-        public Language Language
-        {
-            get
-            {
-                return IoC.Resolve<ILanguageService>().GetLanguageById(this.LanguageId);
-            }
-        }
 
-        /// <summary>
-        /// Gets the currency
-        /// </summary>
-        public Currency Currency
-        {
-            get
-            {
-                return IoC.Resolve<ICurrencyService>().GetCurrencyById(this.CurrencyId);
-            }
-        }
-
-        /// <summary>
-        /// Gets the billing addresses
-        /// </summary>
-        public List<Address> BillingAddresses
-        {
-            get
-            {
-                return IoC.Resolve<ICustomerService>().GetAddressesByCustomerId(this.CustomerId, true);
-            }
-        }
+ 
 
         /// <summary>
         /// Gets the shipping addresses
@@ -201,7 +150,7 @@ namespace ZwShop.Services.CustomerManagement
         {
             get
             {
-                return IoC.Resolve<ICustomerService>().GetAddressesByCustomerId(this.CustomerId, false);
+                return IoC.Resolve<ICustomerService>().GetAddressesByCustomerId(this.Id, false);
             }
         }
 
@@ -212,24 +161,11 @@ namespace ZwShop.Services.CustomerManagement
         {
             get
             {
-                return IoC.Resolve<IOrderService>().GetOrdersByCustomerId(this.CustomerId);
+                return IoC.Resolve<IOrderService>().GetOrdersByCustomerId(this.Id);
             }
         }
 
-        /// <summary>
-        /// Gets the tax display type
-        /// </summary>
-        public TaxDisplayTypeEnum TaxDisplayType
-        {
-            get
-            {
-                return (TaxDisplayTypeEnum)this.TaxDisplayTypeId;
-            }
-            set
-            {
-                this.TaxDisplayTypeId = (int)value;
-            }
-        }
+    
 
         /// <summary>
         /// Gets the avatar
@@ -250,70 +186,6 @@ namespace ZwShop.Services.CustomerManagement
             get
             {
                 return IoC.Resolve<IPaymentService>().GetPaymentMethodById(this.LastPaymentMethodId);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the last shipping option
-        /// </summary>
-        public ShippingOption LastShippingOption
-        {
-            get
-            {
-                ShippingOption shippingOption = null;
-                CustomerAttribute lastShippingOptionAttr = this.CustomerAttributes.FindAttribute("LastShippingOption", this.CustomerId);
-                if (lastShippingOptionAttr != null && !String.IsNullOrEmpty(lastShippingOptionAttr.Value))
-                {
-                    try
-                    {
-                        using (TextReader tr = new StringReader(lastShippingOptionAttr.Value))
-                        {
-                            XmlSerializer xmlS = new XmlSerializer(typeof(ShippingOption));
-                            shippingOption = (ShippingOption)xmlS.Deserialize(tr);
-                        }
-                    }
-                    catch
-                    {
-                        //xml error
-                    }
-                }
-                return shippingOption;
-            }
-            set
-            {
-                CustomerAttribute lastShippingOptionAttr = this.CustomerAttributes.FindAttribute("LastShippingOption", this.CustomerId);
-                if (value != null)
-                {
-                    StringBuilder sb = new StringBuilder();
-                    using (TextWriter tw = new StringWriter(sb))
-                    {
-                        XmlSerializer xmlS = new XmlSerializer(typeof(ShippingOption));
-                        xmlS.Serialize(tw, value);
-                        string serialized = sb.ToString();
-                        if (lastShippingOptionAttr != null)
-                        {
-                            lastShippingOptionAttr.Value = serialized;
-                            IoC.Resolve<ICustomerService>().UpdateCustomerAttribute(lastShippingOptionAttr);
-                        }
-                        else
-                        {
-                            lastShippingOptionAttr = new CustomerAttribute()
-                            {
-                                CustomerId = this.CustomerId,
-                                Key = "LastShippingOption",
-                                Value = serialized
-                            };
-                            IoC.Resolve<ICustomerService>().InsertCustomerAttribute(lastShippingOptionAttr);
-                        }
-                    }
-                }
-                else
-                {
-                    if (lastShippingOptionAttr != null)
-                        IoC.Resolve<ICustomerService>().DeleteCustomerAttribute(lastShippingOptionAttr.CustomerAttributeId);
-                }
-
-                ResetCachedValues();
             }
         }
 
@@ -339,7 +211,7 @@ namespace ZwShop.Services.CustomerManagement
             get
             {
                 var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute genderAttr = customerAttributes.FindAttribute("Gender", this.CustomerId);
+                CustomerAttribute genderAttr = customerAttributes.FindAttribute("Gender", this.Id);
                 if (genderAttr != null)
                     return genderAttr.Value;
                 else
@@ -348,7 +220,7 @@ namespace ZwShop.Services.CustomerManagement
             set
             {
                 var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute genderAttr = customerAttributes.FindAttribute("Gender", this.CustomerId);
+                CustomerAttribute genderAttr = customerAttributes.FindAttribute("Gender", this.Id);
                 if (genderAttr != null)
                 {
                     genderAttr.Value = value;
@@ -358,7 +230,7 @@ namespace ZwShop.Services.CustomerManagement
                 {
                     genderAttr = new CustomerAttribute()
                     {
-                        CustomerId = this.CustomerId,
+                        CustomerId = this.Id,
                         Key = "Gender",
                         Value = value
                     };
@@ -376,7 +248,7 @@ namespace ZwShop.Services.CustomerManagement
             get
             {
                 var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute firstNameAttr = customerAttributes.FindAttribute("FirstName", this.CustomerId);
+                CustomerAttribute firstNameAttr = customerAttributes.FindAttribute("FirstName", this.Id);
                 if (firstNameAttr != null)
                     return firstNameAttr.Value;
                 else
@@ -389,7 +261,7 @@ namespace ZwShop.Services.CustomerManagement
                 value = value.Trim();
 
                 var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute firstNameAttr = customerAttributes.FindAttribute("FirstName", this.CustomerId);
+                CustomerAttribute firstNameAttr = customerAttributes.FindAttribute("FirstName", this.Id);
                 if (firstNameAttr != null)
                 {
                     firstNameAttr.Value = value;
@@ -399,7 +271,7 @@ namespace ZwShop.Services.CustomerManagement
                 {
                     firstNameAttr = new CustomerAttribute()
                     {
-                        CustomerId = this.CustomerId,
+                        CustomerId = this.Id,
                         Key = "FirstName",
                         Value = value
                     };
@@ -417,7 +289,7 @@ namespace ZwShop.Services.CustomerManagement
             get
             {
                 var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute lastNameAttr = customerAttributes.FindAttribute("LastName", this.CustomerId);
+                CustomerAttribute lastNameAttr = customerAttributes.FindAttribute("LastName", this.Id);
                 if (lastNameAttr != null)
                     return lastNameAttr.Value;
                 else
@@ -430,7 +302,7 @@ namespace ZwShop.Services.CustomerManagement
                 value = value.Trim();
 
                 var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute lastNameAttr = customerAttributes.FindAttribute("LastName", this.CustomerId);
+                CustomerAttribute lastNameAttr = customerAttributes.FindAttribute("LastName", this.Id);
                 if (lastNameAttr != null)
                 {
                     lastNameAttr.Value = value;
@@ -440,7 +312,7 @@ namespace ZwShop.Services.CustomerManagement
                 {
                     lastNameAttr = new CustomerAttribute()
                     {
-                        CustomerId = this.CustomerId,
+                        CustomerId = this.Id,
                         Key = "LastName",
                         Value = value
                     };
@@ -459,7 +331,7 @@ namespace ZwShop.Services.CustomerManagement
             get
             {
                 var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute companyAttr = customerAttributes.FindAttribute("Company", this.CustomerId);
+                CustomerAttribute companyAttr = customerAttributes.FindAttribute("Company", this.Id);
                 if (companyAttr != null)
                     return companyAttr.Value;
                 else
@@ -472,7 +344,7 @@ namespace ZwShop.Services.CustomerManagement
                 value = value.Trim();
 
                 var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute companyAttr = customerAttributes.FindAttribute("Company", this.CustomerId);
+                CustomerAttribute companyAttr = customerAttributes.FindAttribute("Company", this.Id);
                 if (companyAttr != null)
                 {
                     companyAttr.Value = value;
@@ -482,7 +354,7 @@ namespace ZwShop.Services.CustomerManagement
                 {
                     companyAttr = new CustomerAttribute()
                     {
-                        CustomerId = this.CustomerId,
+                        CustomerId = this.Id,
                         Key = "Company",
                         Value = value
                     };
@@ -501,7 +373,7 @@ namespace ZwShop.Services.CustomerManagement
             get
             {
                 var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute vatNumberAttr = customerAttributes.FindAttribute("VatNumber", this.CustomerId);
+                CustomerAttribute vatNumberAttr = customerAttributes.FindAttribute("VatNumber", this.Id);
                 if (vatNumberAttr != null)
                     return vatNumberAttr.Value;
                 else
@@ -514,7 +386,7 @@ namespace ZwShop.Services.CustomerManagement
                 value = value.Trim();
 
                 var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute vatNumberAttr = customerAttributes.FindAttribute("VatNumber", this.CustomerId);
+                CustomerAttribute vatNumberAttr = customerAttributes.FindAttribute("VatNumber", this.Id);
                 if (vatNumberAttr != null)
                 {
                     vatNumberAttr.Value = value;
@@ -524,7 +396,7 @@ namespace ZwShop.Services.CustomerManagement
                 {
                     vatNumberAttr = new CustomerAttribute()
                     {
-                        CustomerId = this.CustomerId,
+                        CustomerId = this.Id,
                         Key = "VatNumber",
                         Value = value
                     };
@@ -535,48 +407,6 @@ namespace ZwShop.Services.CustomerManagement
             }
         }
 
-        /// <summary>
-        /// Gets or sets the VAT number status
-        /// </summary>
-        public VatNumberStatusEnum VatNumberStatus
-        {
-            get
-            {
-                var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute vatNumberStatusAttr = customerAttributes.FindAttribute("VatNumberStatus", this.CustomerId);
-                if (vatNumberStatusAttr != null)
-                {
-                    int vatNumberStatusId = 0;
-                    int.TryParse(vatNumberStatusAttr.Value, out vatNumberStatusId);
-                    return (VatNumberStatusEnum)vatNumberStatusId;
-                }
-                else
-                    return VatNumberStatusEnum.Empty;
-            }
-            set
-            {
-                int vatNumberStatusId = (int)value;
-                var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute vatNumberStatusAttr = customerAttributes.FindAttribute("VatNumberStatus", this.CustomerId);
-                if (vatNumberStatusAttr != null)
-                {
-                    vatNumberStatusAttr.Value = vatNumberStatusId.ToString();
-                    IoC.Resolve<ICustomerService>().UpdateCustomerAttribute(vatNumberStatusAttr);
-                }
-                else
-                {
-                    vatNumberStatusAttr = new CustomerAttribute()
-                    {
-                        CustomerId = this.CustomerId,
-                        Key = "VatNumberStatus",
-                        Value = vatNumberStatusId.ToString()
-                    };
-                    IoC.Resolve<ICustomerService>().InsertCustomerAttribute(vatNumberStatusAttr);
-                }
-
-                ResetCachedValues();
-            }
-        }
 
         /// <summary>
         /// Gets or sets the street address
@@ -586,7 +416,7 @@ namespace ZwShop.Services.CustomerManagement
             get
             {
                 var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute streetAddressAttr = customerAttributes.FindAttribute("StreetAddress", this.CustomerId);
+                CustomerAttribute streetAddressAttr = customerAttributes.FindAttribute("StreetAddress", this.Id);
                 if (streetAddressAttr != null)
                     return streetAddressAttr.Value;
                 else
@@ -599,7 +429,7 @@ namespace ZwShop.Services.CustomerManagement
                 value = value.Trim();
 
                 var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute streetAddressAttr = customerAttributes.FindAttribute("StreetAddress", this.CustomerId);
+                CustomerAttribute streetAddressAttr = customerAttributes.FindAttribute("StreetAddress", this.Id);
                 if (streetAddressAttr != null)
                 {
                     streetAddressAttr.Value = value;
@@ -609,7 +439,7 @@ namespace ZwShop.Services.CustomerManagement
                 {
                     streetAddressAttr = new CustomerAttribute()
                     {
-                        CustomerId = this.CustomerId,
+                        CustomerId = this.Id,
                         Key = "StreetAddress",
                         Value = value
                     };
@@ -627,7 +457,7 @@ namespace ZwShop.Services.CustomerManagement
             get
             {
                 var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute streetAddress2Attr = customerAttributes.FindAttribute("StreetAddress2", this.CustomerId);
+                CustomerAttribute streetAddress2Attr = customerAttributes.FindAttribute("StreetAddress2", this.Id);
                 if (streetAddress2Attr != null)
                     return streetAddress2Attr.Value;
                 else
@@ -640,7 +470,7 @@ namespace ZwShop.Services.CustomerManagement
                 value = value.Trim();
 
                 var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute streetAddress2Attr = customerAttributes.FindAttribute("StreetAddress2", this.CustomerId);
+                CustomerAttribute streetAddress2Attr = customerAttributes.FindAttribute("StreetAddress2", this.Id);
                 if (streetAddress2Attr != null)
                 {
                     streetAddress2Attr.Value = value;
@@ -650,7 +480,7 @@ namespace ZwShop.Services.CustomerManagement
                 {
                     streetAddress2Attr = new CustomerAttribute()
                     {
-                        CustomerId = this.CustomerId,
+                        CustomerId = this.Id,
                         Key = "StreetAddress2",
                         Value = value
                     };
@@ -668,7 +498,7 @@ namespace ZwShop.Services.CustomerManagement
             get
             {
                 var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute zipPostalCodeAttr = customerAttributes.FindAttribute("ZipPostalCode", this.CustomerId);
+                CustomerAttribute zipPostalCodeAttr = customerAttributes.FindAttribute("ZipPostalCode", this.Id);
                 if (zipPostalCodeAttr != null)
                     return zipPostalCodeAttr.Value;
                 else
@@ -681,7 +511,7 @@ namespace ZwShop.Services.CustomerManagement
                 value = value.Trim();
 
                 var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute zipPostalCodeAttr = customerAttributes.FindAttribute("ZipPostalCode", this.CustomerId);
+                CustomerAttribute zipPostalCodeAttr = customerAttributes.FindAttribute("ZipPostalCode", this.Id);
                 if (zipPostalCodeAttr != null)
                 {
                     zipPostalCodeAttr.Value = value;
@@ -691,7 +521,7 @@ namespace ZwShop.Services.CustomerManagement
                 {
                     zipPostalCodeAttr = new CustomerAttribute()
                     {
-                        CustomerId = this.CustomerId,
+                        CustomerId = this.Id,
                         Key = "ZipPostalCode",
                         Value = value
                     };
@@ -709,7 +539,7 @@ namespace ZwShop.Services.CustomerManagement
             get
             {
                 var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute cityAttr = customerAttributes.FindAttribute("City", this.CustomerId);
+                CustomerAttribute cityAttr = customerAttributes.FindAttribute("City", this.Id);
                 if (cityAttr != null)
                     return cityAttr.Value;
                 else
@@ -722,7 +552,7 @@ namespace ZwShop.Services.CustomerManagement
                 value = value.Trim();
 
                 var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute cityAttr = customerAttributes.FindAttribute("City", this.CustomerId);
+                CustomerAttribute cityAttr = customerAttributes.FindAttribute("City", this.Id);
                 if (cityAttr != null)
                 {
                     cityAttr.Value = value;
@@ -732,7 +562,7 @@ namespace ZwShop.Services.CustomerManagement
                 {
                     cityAttr = new CustomerAttribute()
                     {
-                        CustomerId = this.CustomerId,
+                        CustomerId = this.Id,
                         Key = "City",
                         Value = value
                     };
@@ -743,131 +573,7 @@ namespace ZwShop.Services.CustomerManagement
             }
         }
 
-        /// <summary>
-        /// Gets or sets the phone number
-        /// </summary>
-        public string PhoneNumber
-        {
-            get
-            {
-                var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute phoneNumberAttr = customerAttributes.FindAttribute("PhoneNumber", this.CustomerId);
-                if (phoneNumberAttr != null)
-                    return phoneNumberAttr.Value;
-                else
-                    return string.Empty;
-            }
-            set
-            {
-                if (value == null)
-                    value = string.Empty;
-                value = value.Trim();
 
-                var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute phoneNumberAttr = customerAttributes.FindAttribute("PhoneNumber", this.CustomerId);
-                if (phoneNumberAttr != null)
-                {
-                    phoneNumberAttr.Value = value;
-                    IoC.Resolve<ICustomerService>().UpdateCustomerAttribute(phoneNumberAttr);
-                }
-                else
-                {
-                    phoneNumberAttr = new CustomerAttribute()
-                    {
-                        CustomerId = this.CustomerId,
-                        Key = "PhoneNumber",
-                        Value = value
-                    };
-                    IoC.Resolve<ICustomerService>().InsertCustomerAttribute(phoneNumberAttr);
-                }
-
-                ResetCachedValues();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the fax number
-        /// </summary>
-        public string FaxNumber
-        {
-            get
-            {
-                var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute faxNumberAttr = customerAttributes.FindAttribute("FaxNumber", this.CustomerId);
-                if (faxNumberAttr != null)
-                    return faxNumberAttr.Value;
-                else
-                    return string.Empty;
-            }
-            set
-            {
-                if (value == null)
-                    value = string.Empty;
-                value = value.Trim();
-
-                var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute faxNumberAttr = customerAttributes.FindAttribute("FaxNumber", this.CustomerId);
-                if (faxNumberAttr != null)
-                {
-                    faxNumberAttr.Value = value;
-                    IoC.Resolve<ICustomerService>().UpdateCustomerAttribute(faxNumberAttr);
-                }
-                else
-                {
-                    faxNumberAttr = new CustomerAttribute()
-                    {
-                        CustomerId = this.CustomerId,
-                        Key = "FaxNumber",
-                        Value = value
-                    };
-                    IoC.Resolve<ICustomerService>().InsertCustomerAttribute(faxNumberAttr);
-                }
-
-                ResetCachedValues();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the country identifier
-        /// </summary>
-        public int CountryId
-        {
-            get
-            {
-                var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute countryIdAttr = customerAttributes.FindAttribute("CountryId", this.CustomerId);
-                if (countryIdAttr != null)
-                {
-                    int countryId = 0;
-                    int.TryParse(countryIdAttr.Value, out countryId);
-                    return countryId;
-                }
-                else
-                    return 0;
-            }
-            set
-            {
-                var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute countryIdAttr = customerAttributes.FindAttribute("CountryId", this.CustomerId);
-                if (countryIdAttr != null)
-                {
-                    countryIdAttr.Value = value.ToString();
-                    IoC.Resolve<ICustomerService>().UpdateCustomerAttribute(countryIdAttr);
-                }
-                else
-                {
-                    countryIdAttr = new CustomerAttribute()
-                    {
-                        CustomerId = this.CustomerId,
-                        Key = "CountryId",
-                        Value = value.ToString()
-                    };
-                    IoC.Resolve<ICustomerService>().InsertCustomerAttribute(countryIdAttr);
-                }
-
-                ResetCachedValues();
-            }
-        }
 
         /// <summary>
         /// Gets or sets the state/province identifier
@@ -877,7 +583,7 @@ namespace ZwShop.Services.CustomerManagement
             get
             {
                 var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute stateProvinceIdAttr = customerAttributes.FindAttribute("StateProvinceId", this.CustomerId);
+                CustomerAttribute stateProvinceIdAttr = customerAttributes.FindAttribute("StateProvinceId", this.Id);
                 if (stateProvinceIdAttr != null)
                 {
                     int stateProvinceId = 0;
@@ -890,7 +596,7 @@ namespace ZwShop.Services.CustomerManagement
             set
             {
                 var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute stateProvinceIdAttr = customerAttributes.FindAttribute("StateProvinceId", this.CustomerId);
+                CustomerAttribute stateProvinceIdAttr = customerAttributes.FindAttribute("StateProvinceId", this.Id);
                 if (stateProvinceIdAttr != null)
                 {
                     stateProvinceIdAttr.Value = value.ToString();
@@ -900,7 +606,7 @@ namespace ZwShop.Services.CustomerManagement
                 {
                     stateProvinceIdAttr = new CustomerAttribute()
                     {
-                        CustomerId = this.CustomerId,
+                        CustomerId = this.Id,
                         Key = "StateProvinceId",
                         Value = value.ToString()
                     };
@@ -934,7 +640,7 @@ namespace ZwShop.Services.CustomerManagement
                     }
                     else
                     {
-                        IoC.Resolve<IMessageService>().DeleteNewsLetterSubscription(subscription.NewsLetterSubscriptionId);
+                        IoC.Resolve<IMessageService>().DeleteNewsLetterSubscription(subscription.Id);
                     }
                 }
                 else
@@ -973,7 +679,7 @@ namespace ZwShop.Services.CustomerManagement
             get
             {
                 var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute passwordRecoveryAttr = customerAttributes.FindAttribute("PasswordRecoveryToken", this.CustomerId);
+                CustomerAttribute passwordRecoveryAttr = customerAttributes.FindAttribute("PasswordRecoveryToken", this.Id);
                 if (passwordRecoveryAttr != null)
                     return passwordRecoveryAttr.Value;
                 else
@@ -982,7 +688,7 @@ namespace ZwShop.Services.CustomerManagement
             set
             {
                 var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute passwordRecoveryAttr = customerAttributes.FindAttribute("PasswordRecoveryToken", this.CustomerId);
+                CustomerAttribute passwordRecoveryAttr = customerAttributes.FindAttribute("PasswordRecoveryToken", this.Id);
 
                 if (passwordRecoveryAttr != null)
                 {
@@ -993,7 +699,7 @@ namespace ZwShop.Services.CustomerManagement
                     }
                     else
                     {
-                        IoC.Resolve<ICustomerService>().DeleteCustomerAttribute(passwordRecoveryAttr.CustomerAttributeId);
+                        IoC.Resolve<ICustomerService>().DeleteCustomerAttribute(passwordRecoveryAttr.Id);
                     }
                 }
                 else
@@ -1002,7 +708,7 @@ namespace ZwShop.Services.CustomerManagement
                     {
                         passwordRecoveryAttr = new CustomerAttribute()
                         {
-                            CustomerId = this.CustomerId,
+                            CustomerId = this.Id,
                             Key = "PasswordRecoveryToken",
                             Value = value
                         };
@@ -1021,7 +727,7 @@ namespace ZwShop.Services.CustomerManagement
             get
             {
                 var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute accountActivationAttr = customerAttributes.FindAttribute("AccountActivationToken", this.CustomerId);
+                CustomerAttribute accountActivationAttr = customerAttributes.FindAttribute("AccountActivationToken", this.Id);
                 if (accountActivationAttr != null)
                     return accountActivationAttr.Value;
                 else
@@ -1030,7 +736,7 @@ namespace ZwShop.Services.CustomerManagement
             set
             {
                 var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute accountActivationAttr = customerAttributes.FindAttribute("AccountActivationToken", this.CustomerId);
+                CustomerAttribute accountActivationAttr = customerAttributes.FindAttribute("AccountActivationToken", this.Id);
 
                 if (accountActivationAttr != null)
                 {
@@ -1041,7 +747,7 @@ namespace ZwShop.Services.CustomerManagement
                     }
                     else
                     {
-                        IoC.Resolve<ICustomerService>().DeleteCustomerAttribute(accountActivationAttr.CustomerAttributeId);
+                        IoC.Resolve<ICustomerService>().DeleteCustomerAttribute(accountActivationAttr.Id);
                     }
                 }
                 else
@@ -1050,7 +756,7 @@ namespace ZwShop.Services.CustomerManagement
                     {
                         accountActivationAttr = new CustomerAttribute()
                         {
-                            CustomerId = this.CustomerId,
+                            CustomerId = this.Id,
                             Key = "AccountActivationToken",
                             Value = value
                         };
@@ -1068,11 +774,11 @@ namespace ZwShop.Services.CustomerManagement
         {
             get
             {
-                if (this.CustomerId == 0)
+                if (this.Id == 0)
                     return new List<RewardPointsHistory>();
                 if (_rewardPointsHistoryCache == null)
                 {
-                    _rewardPointsHistoryCache = IoC.Resolve<IOrderService>().GetAllRewardPointsHistoryEntries(this.CustomerId,
+                    _rewardPointsHistoryCache = IoC.Resolve<IOrderService>().GetAllRewardPointsHistoryEntries(this.Id,
                         null, 0, int.MaxValue);
                 }
                 return _rewardPointsHistoryCache;
@@ -1101,7 +807,7 @@ namespace ZwShop.Services.CustomerManagement
             get
             {
                 var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute useRewardPointsAttr = customerAttributes.FindAttribute("UseRewardPointsDuringCheckout", this.CustomerId);
+                CustomerAttribute useRewardPointsAttr = customerAttributes.FindAttribute("UseRewardPointsDuringCheckout", this.Id);
                 if (useRewardPointsAttr != null)
                 {
                     bool useRewardPoints = false;
@@ -1114,7 +820,7 @@ namespace ZwShop.Services.CustomerManagement
             set
             {
                 var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute useRewardPointsAttr = customerAttributes.FindAttribute("UseRewardPointsDuringCheckout", this.CustomerId);
+                CustomerAttribute useRewardPointsAttr = customerAttributes.FindAttribute("UseRewardPointsDuringCheckout", this.Id);
                 if (useRewardPointsAttr != null)
                 {
                     useRewardPointsAttr.Value = value.ToString();
@@ -1124,7 +830,7 @@ namespace ZwShop.Services.CustomerManagement
                 {
                     useRewardPointsAttr = new CustomerAttribute()
                     {
-                        CustomerId = this.CustomerId,
+                        CustomerId = this.Id,
                         Key = "UseRewardPointsDuringCheckout",
                         Value = value.ToString()
                     };
@@ -1143,7 +849,7 @@ namespace ZwShop.Services.CustomerManagement
             get
             {
                 var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute attr = customerAttributes.FindAttribute("NotifiedAboutNewPrivateMessages", this.CustomerId);
+                CustomerAttribute attr = customerAttributes.FindAttribute("NotifiedAboutNewPrivateMessages", this.Id);
                 if (attr != null)
                 {
                     bool result = false;
@@ -1156,7 +862,7 @@ namespace ZwShop.Services.CustomerManagement
             set
             {
                 var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute attr = customerAttributes.FindAttribute("NotifiedAboutNewPrivateMessages", this.CustomerId);
+                CustomerAttribute attr = customerAttributes.FindAttribute("NotifiedAboutNewPrivateMessages", this.Id);
                 if (attr != null)
                 {
                     attr.Value = value.ToString();
@@ -1166,7 +872,7 @@ namespace ZwShop.Services.CustomerManagement
                 {
                     attr = new CustomerAttribute()
                     {
-                        CustomerId = this.CustomerId,
+                        CustomerId = this.Id,
                         Key = "NotifiedAboutNewPrivateMessages",
                         Value = value.ToString()
                     };
@@ -1185,7 +891,7 @@ namespace ZwShop.Services.CustomerManagement
             get
             {
                 var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute attr = customerAttributes.FindAttribute("ImpersonatedCustomerGuid", this.CustomerId);
+                CustomerAttribute attr = customerAttributes.FindAttribute("ImpersonatedCustomerGuid", this.Id);
                 if (attr != null)
                 {
                     Guid _impersonatedCustomerGuid = Guid.Empty;
@@ -1198,7 +904,7 @@ namespace ZwShop.Services.CustomerManagement
             set
             {
                 var customerAttributes = this.CustomerAttributes;
-                CustomerAttribute attr = customerAttributes.FindAttribute("ImpersonatedCustomerGuid", this.CustomerId);
+                CustomerAttribute attr = customerAttributes.FindAttribute("ImpersonatedCustomerGuid", this.Id);
                 if (attr != null)
                 {
                     attr.Value = value.ToString();
@@ -1208,7 +914,7 @@ namespace ZwShop.Services.CustomerManagement
                 {
                     attr = new CustomerAttribute()
                     {
-                        CustomerId = this.CustomerId,
+                        CustomerId = this.Id,
                         Key = "ImpersonatedCustomerGuid",
                         Value = value.ToString()
                     };
@@ -1225,17 +931,7 @@ namespace ZwShop.Services.CustomerManagement
         /// <summary>
         /// Gets the customer roles
         /// </summary>
-        public virtual ICollection<CustomerRole> NpCustomerRoles { get; set; }
-        
-        /// <summary>
-        /// Gets the discount usage history
-        /// </summary>
-        public virtual ICollection<DiscountUsageHistory> NpDiscountUsageHistory { get; set; }
-        
-        /// <summary>
-        /// Gets the gift card usage history
-        /// </summary>
-        public virtual ICollection<GiftCardUsageHistory> NpGiftCardUsageHistory { get; set; }
+        public virtual ICollection<CustomerRole> NpCustomerRoles { get; set; }   
         
         /// <summary>
         /// Gets the reward points usage history

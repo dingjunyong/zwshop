@@ -29,8 +29,6 @@ namespace ZwShop.Services.CustomerManagement
 
         public string ZipPostalCode { get; set; }
 
-        public int CountryId { get; set; }
-
         public DateTime CreatedOn { get; set; }
 
         public DateTime UpdatedOn { get; set; }
@@ -53,13 +51,7 @@ namespace ZwShop.Services.CustomerManagement
             }
         }
 
-        public Country Country
-        {
-            get
-            {
-                return IoC.Resolve<ICountryService>().GetCountryById(this.CountryId);
-            }
-        }
+
         #endregion
 
         #region Navigation Properties

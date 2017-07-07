@@ -29,8 +29,6 @@ using ZwShop.Services.Messages.SMS;
 using ZwShop.Services.Orders;
 using ZwShop.Services.Payment;
 using ZwShop.Services.Products;
-using ZwShop.Services.Products.Attributes;
-using ZwShop.Services.Products.Specs;
 using ZwShop.Services.Security;
 using ZwShop.Services.Shipping;
 using ZwShop.Common.Utils;
@@ -130,18 +128,7 @@ namespace ZwShop.Web
         {
             get { return IoC.Resolve<IPaymentService>(); }
         }
-        public ICheckoutAttributeService CheckoutAttributeService
-        {
-            get { return IoC.Resolve<ICheckoutAttributeService>(); }
-        }
-        public IProductAttributeService ProductAttributeService
-        {
-            get { return IoC.Resolve<IProductAttributeService>(); }
-        }
-        public ISpecificationAttributeService SpecificationAttributeService
-        {
-            get { return IoC.Resolve<ISpecificationAttributeService>(); }
-        }
+        
         public IProductService ProductService
         {
             get { return IoC.Resolve<IProductService>(); }

@@ -9,7 +9,6 @@ using ZwShop.Services.CustomerManagement;
 using ZwShop.Services.Directory;
 using ZwShop.Services.Infrastructure;
 using ZwShop.Services.Orders;
-using ZwShop.Services.Products.Attributes;
 
 namespace ZwShop.Services.Shipping
 {
