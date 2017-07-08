@@ -97,11 +97,7 @@ namespace ZwShop.Web
                 }
             }
 
-            //theme
-            if (!String.IsNullOrEmpty(ShopContext.Current.WorkingTheme))
-            {
-                this.Theme = ShopContext.Current.WorkingTheme;
-            }
+           
             base.OnPreInit(e);
         }
 

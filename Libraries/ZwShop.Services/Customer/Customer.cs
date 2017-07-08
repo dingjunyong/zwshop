@@ -22,7 +22,6 @@ namespace ZwShop.Services.CustomerManagement
 
         private List<CustomerAttribute> _customerAttributesCache;
         private List<CustomerRole> _customerRolesCache;
-        private Address _billingAddressCache;
         private Address _shippingAddressCache;
         private List<RewardPointsHistory> _rewardPointsHistoryCache;
 
@@ -37,7 +36,6 @@ namespace ZwShop.Services.CustomerManagement
         {
             _customerAttributesCache = null;
             _customerRolesCache = null;
-            _billingAddressCache = null;
             _shippingAddressCache = null;
             _rewardPointsHistoryCache = null;
         }

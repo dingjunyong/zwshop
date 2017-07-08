@@ -7,9 +7,9 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace ZwShop.Web.Admin {
+namespace ZwShop.Web {
     
     
-    public partial class Default {
+    public partial class PasswordRecovery {
     }
 }

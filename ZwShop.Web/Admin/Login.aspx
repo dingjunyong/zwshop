@@ -15,14 +15,14 @@
                     <tbody>
                         <tr class="row">
                             <td class="item-name">
-                                <asp:Literal runat="server" ID="lUsernameOrEmail" Text="E-Mail" />:
+                                <asp:Literal runat="server" ID="lUsernameOrEmail" Text="用户名" />:
                             </td>
                         </tr>
                         <tr class="row">
                             <td class="item-value">
                                 <asp:TextBox ID="UserName" runat="server" CssClass="adminInput" Style="width: 200px;" />
                                 <asp:RequiredFieldValidator ID="UserNameOrEmailRequired" runat="server" ControlToValidate="UserName"
-                                    ErrorMessage="Username is required." ToolTip="Username is required." ValidationGroup="LoginForm">
+                                    ErrorMessage="用户名无效." ToolTip="用户名必填." ValidationGroup="LoginForm">
                                             *
                                 </asp:RequiredFieldValidator>
                             </td>

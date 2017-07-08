@@ -1,28 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{DDA3C56D-EF97-401D-A6E4-3712CEB18D48}"
-	ProjectSection(SolutionItems) = preProject
-		Dependencies\AjaxControlToolkit.dll = Dependencies\AjaxControlToolkit.dll
-		Dependencies\Dapper.dll = Dependencies\Dapper.dll
-		Dependencies\FredCK.FCKeditorV2.dll = Dependencies\FredCK.FCKeditorV2.dll
-		Dependencies\GCheckout.dll = Dependencies\GCheckout.dll
-		Dependencies\Ionic.Zip.dll = Dependencies\Ionic.Zip.dll
-		Dependencies\Microsoft.Practices.ServiceLocation.dll = Dependencies\Microsoft.Practices.ServiceLocation.dll
-		Dependencies\Microsoft.Practices.Unity.Configuration.dll = Dependencies\Microsoft.Practices.Unity.Configuration.dll
-		Dependencies\Microsoft.Practices.Unity.dll = Dependencies\Microsoft.Practices.Unity.dll
-		Dependencies\Microsoft.Practices.Unity.Interception.Configuration.dll = Dependencies\Microsoft.Practices.Unity.Interception.Configuration.dll
-		Dependencies\Microsoft.Practices.Unity.Interception.dll = Dependencies\Microsoft.Practices.Unity.Interception.dll
-		Dependencies\MigraDoc.DocumentObjectModel.dll = Dependencies\MigraDoc.DocumentObjectModel.dll
-		Dependencies\MigraDoc.Rendering.dll = Dependencies\MigraDoc.Rendering.dll
-		Dependencies\MigraDoc.RtfRendering.dll = Dependencies\MigraDoc.RtfRendering.dll
-		Dependencies\Payflow_dotNET.dll = Dependencies\Payflow_dotNET.dll
-		Dependencies\PdfSharp.Charting.dll = Dependencies\PdfSharp.Charting.dll
-		Dependencies\PdfSharp.dll = Dependencies\PdfSharp.dll
-		Dependencies\RssToolkit.dll = Dependencies\RssToolkit.dll
-		Dependencies\USAePayAPI.dll = Dependencies\USAePayAPI.dll
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{01D8DF90-4BBC-479D-BADD-78DB6816162A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZwShop.Common", "Libraries\ZwShop.Common\ZwShop.Common.csproj", "{01C8BA76-0CE5-4EBE-93CD-9C48D706461A}"
@@ -74,7 +52,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{01C8BA76-0CE5-4EBE-93CD-9C48D706461A} = {01D8DF90-4BBC-479D-BADD-78DB6816162A}
 		{1DA67E66-0B0E-470E-AD84-46A70763C780} = {01D8DF90-4BBC-479D-BADD-78DB6816162A}
 		{CBB36348-1F73-4D85-A8AF-3E23DE34E9B8} = {01D8DF90-4BBC-479D-BADD-78DB6816162A}
 		{133FE796-1EE0-439C-8F10-CDAA907E588B} = {7DA48359-003D-43BF-BB77-21818C97C251}

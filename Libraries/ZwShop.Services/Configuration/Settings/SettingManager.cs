@@ -124,7 +124,9 @@ namespace ZwShop.Services.Configuration.Settings
             //    _cacheManager.Add(key, settings);
             //}
             //return settings;
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+
+            return new Dictionary<string, Setting>();
         }
 
          /// <summary>

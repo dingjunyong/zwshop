@@ -29,7 +29,6 @@ namespace ZwShop.Services
         private Customer _originalCustomer;
         private bool? _isAdmin;
         private readonly HttpContext _context = HttpContext.Current;
-        private bool? _localizedEntityPropertiesEnabled;
         #endregion
 
         #region Ctor
@@ -307,45 +306,6 @@ namespace ZwShop.Services
                     return HttpContext.Current.Request.UserHostAddress;
                 else
                     return string.Empty;
-            }
-        }
-
-
-        /// <summary>
-        /// Get or set current theme (e.g. darkOrange)
-        /// </summary>
-        public string WorkingTheme
-        {
-            get
-            {
-                if (IoC.Resolve<ISettingManager>().GetSettingValueBoolean("Display.AllowCustomerSelectTheme"))
-                {
-                    string themeCookie = CommonHelper.GetCookieString("Shop.WorkingTheme", false);
-                    if (!String.IsNullOrEmpty(themeCookie))
-                    {
-                        //validate whether folder theme physically exists
-                        string[] systemThemes = IoC.Resolve<ISettingManager>().GetSettingValue("Display.SystemThemes").Split(',');
-                        var tmp1 = from f in System.IO.Directory.GetDirectories(HttpContext.Current.Request.PhysicalApplicationPath + "App_Themes")
-                                        where !systemThemes.Contains(System.IO.Path.GetFileName(f).ToLower())
-                                        && themeCookie.Equals(System.IO.Path.GetFileName(f), StringComparison.InvariantCultureIgnoreCase)
-                                        select System.IO.Path.GetFileName(f);
-                        if (tmp1.ToList().Count > 0)
-                            return themeCookie;
-                    }
-                }
-                string defaultTheme = IoC.Resolve<ISettingManager>().GetSettingValue("Display.PublicStoreTheme");
-                if (!String.IsNullOrEmpty(defaultTheme))
-                {
-                    return defaultTheme;
-                }
-                return string.Empty;
-            }
-            set
-            {
-                if (!IoC.Resolve<ISettingManager>().GetSettingValueBoolean("Display.AllowCustomerSelectTheme"))
-                    return;
-
-                CommonHelper.SetCookie("Shop.WorkingTheme", value.Trim(), new TimeSpan(365, 0, 0, 0, 0));
             }
         }
 

@@ -1,5 +1,5 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="ZwShop.Web.Admin.Main" %>
-<%@ Register TagPrefix="shop" TagName="Menu" Src="Modules/MenuControl.ascx" %>
+<%--<%@ Register TagPrefix="shop" TagName="Menu" Src="Modules/MenuControl.ascx" %>--%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -21,7 +21,7 @@
                     <a href="<%=CommonHelper.GetStoreLocation()%>">商城首页</a> <span class="separator">
                         |</span>
                     <asp:LinkButton runat="server" ID="lbClearCache" CausesValidation="false" OnClick="lbClearCache_Click"
-                        Text="<% $NopResources:Admin.ClearCacheButton.Text %>" />
+                        Text="清除缓存" />
                 </div>
                 <div class="login-info">
                     <asp:LoginView ID="topLoginView" runat="server">
@@ -39,11 +39,11 @@
             <div class="clear">
             </div>
             <div class="header-menu">
-                <shop:Menu runat="server" ID="ctrlMenu" SiteMapProviderName="ShopAdminXmlSiteMapProvider" />
+               <%-- <shop:Menu runat="server" ID="ctrlMenu" SiteMapProviderName="ShopAdminXmlSiteMapProvider" />--%>
             </div>
             <div class="status-bar">
                 <div class="help">
-                    <%=DateTimeHelper.ConvertToUserTime(DateTime.UtcNow).ToString("f")%>
+                    <%=DateTime.Now%>
                     <asp:HyperLink runat="server" ID="lnkHelp" />
                 </div>
                 <div class="breadcrumb">

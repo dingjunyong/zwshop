@@ -74,7 +74,14 @@
     <Content Include="Admin\Default.aspx" />
     <Content Include="Admin\Login.aspx" />
     <Content Include="Admin\Modules\DecimalTextBox.ascx" />
+    <Content Include="Admin\Modules\MenuControl.ascx" />
     <Content Include="Admin\Payment\Alipay\HostedPaymentConfig.ascx" />
+    <Content Include="Admin\Scripts\admin.js" />
+    <Content Include="Admin\Scripts\jquery-1.4.min.js" />
+    <Content Include="Admin\Scripts\jquery.idTabs.min.js" />
+    <Content Include="Admin\Scripts\jquery.superfishmenu.js" />
+    <Content Include="Admin\Scripts\public.js" />
+    <Content Include="Admin\Scripts\slimbox2.js" />
     <Content Include="App_Themes\admin\idTabs.css" />
     <Content Include="App_Themes\admin\images\1pix.gif" />
     <Content Include="App_Themes\admin\images\admin-gvw-bg.gif" />
@@ -110,6 +117,7 @@
     <Content Include="Modules\Header.ascx" />
     <Content Include="Modules\HeaderMenu.ascx" />
     <Content Include="Modules\SearchBox.ascx" />
+    <Content Include="PasswordRecovery.aspx" />
     <Content Include="StoreClosed.htm" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -141,6 +149,13 @@
     </Compile>
     <Compile Include="Admin\Modules\DecimalTextBox.ascx.designer.cs">
       <DependentUpon>DecimalTextBox.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Modules\MenuControl.ascx.cs">
+      <DependentUpon>MenuControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Modules\MenuControl.ascx.designer.cs">
+      <DependentUpon>MenuControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Payment\Alipay\HostedPaymentConfig.ascx.cs">
       <DependentUpon>HostedPaymentConfig.ascx</DependentUpon>
@@ -239,6 +254,13 @@
     </Compile>
     <Compile Include="Modules\SearchBox.ascx.designer.cs">
       <DependentUpon>SearchBox.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="PasswordRecovery.aspx.cs">
+      <DependentUpon>PasswordRecovery.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PasswordRecovery.aspx.designer.cs">
+      <DependentUpon>PasswordRecovery.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
